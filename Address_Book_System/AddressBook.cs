@@ -8,7 +8,7 @@ namespace Address_Book_System
 {
     public class AddressBook
     {
-        public List<Contact> contacts = new List<Contact>();
+        List<Contact> contacts = new List<Contact>();
         public void AddContact()
         {
             Console.WriteLine("Enter the First Name");
@@ -75,6 +75,34 @@ namespace Address_Book_System
             if(flag==0)
             {
                 Console.WriteLine("Contact not found");
+            }
+            else
+            {
+                Console.WriteLine("Contact details updated");
+            }
+        }
+
+        public void DeleteContact()
+        {
+            Console.WriteLine("Enter the first name of the Contact you want to delete");
+            string name = Console.ReadLine();
+            int flag = 0;
+            for (int i = 0; i < contacts.Count; i++)
+            {
+                if (contacts[i].firstName.Equals(name))
+                {
+                    flag = 1;
+                    contacts.RemoveAt(i);
+                }
+            }
+
+            if (flag == 0)
+            {
+                Console.WriteLine("Contact not found");
+            }
+            else
+            {
+                Console.WriteLine("Contact deleted");
             }
         }
     }
