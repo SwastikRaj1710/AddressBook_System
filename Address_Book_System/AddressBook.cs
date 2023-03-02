@@ -11,6 +11,7 @@ namespace Address_Book_System
         List<Contact> contacts = new List<Contact>();
         public void AddContact()
         {
+            Console.WriteLine("\nEnter the contact details");
             Console.WriteLine("Enter the First Name");
             string firstName = Console.ReadLine();
             Console.WriteLine("Enter the Last Name");
@@ -103,6 +104,17 @@ namespace Address_Book_System
             else
             {
                 Console.WriteLine("Contact deleted");
+            }
+        }
+
+        public void AddMultipleContacts()
+        {
+            Console.WriteLine("Enter the number of contacts to be added");
+            int num = Convert.ToInt32(Console.ReadLine());
+
+            for(int i=0;i<num;i++)
+            {
+                AddContact();
             }
         }
     }

@@ -14,7 +14,8 @@ namespace Address_Book_System
                 Console.WriteLine("1. Add a new Contact to the Address Book");
                 Console.WriteLine("2. Editing an existing Contact in the Address Book");
                 Console.WriteLine("3. Deleting an existing Contact in the Address Book");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Add multiple new Contacts to the Address Book");
+                Console.WriteLine("5. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -33,6 +34,10 @@ namespace Address_Book_System
                         addressBook.DeleteContact();
                         break;
                     case 4:
+                        Console.WriteLine("Adding multiple new contacts to the address book");
+                        addressBook.AddMultipleContacts();
+                        break;
+                    case 5:
                         Environment.Exit(0);
                         break;
                     default:
