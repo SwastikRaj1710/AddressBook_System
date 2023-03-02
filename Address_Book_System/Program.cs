@@ -7,37 +7,27 @@ namespace Address_Book_System
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Address Book Program");
-            AddressBook addressBook = new AddressBook();
+            AddressBookSystem addressBookSystem = new AddressBookSystem();
             while (true)
             {
                 Console.WriteLine("\nMenu");
-                Console.WriteLine("1. Add a new Contact to the Address Book");
-                Console.WriteLine("2. Editing an existing Contact in the Address Book");
-                Console.WriteLine("3. Deleting an existing Contact in the Address Book");
-                Console.WriteLine("4. Add multiple new Contacts to the Address Book");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("1. Add a new Address Book to the system");
+                Console.WriteLine("2. Access an existing Address Book and its Contacts");
+                Console.WriteLine("3. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("Adding a new contact to the address book");
-                        addressBook.AddContact();
+                        Console.WriteLine("Adding a new address book to the system");
+                        addressBookSystem.AddAddressBook();
                         break;
                     case 2:
-                        Console.WriteLine("Editing an existing contact in the address book");
-                        addressBook.EditContact();
+                        Console.WriteLine("Accessing an address book");
+                        addressBookSystem.AccessAddressBook();
                         break;
                     case 3:
-                        Console.WriteLine("Deleting an existing contact in the address book");
-                        addressBook.DeleteContact();
-                        break;
-                    case 4:
-                        Console.WriteLine("Adding multiple new contacts to the address book");
-                        addressBook.AddMultipleContacts();
-                        break;
-                    case 5:
                         Environment.Exit(0);
                         break;
                     default:
