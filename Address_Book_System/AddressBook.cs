@@ -16,6 +16,15 @@ namespace Address_Book_System
             string firstName = Console.ReadLine();
             Console.WriteLine("Enter the Last Name");
             string lastName = Console.ReadLine();
+
+            string fullname = firstName + " " + lastName;
+
+            if(contacts.Find(s => (s.firstName + " " + s.lastName) == fullname) != null)
+            {
+                Console.WriteLine("The entered contact name already exists");
+                return;
+            }
+
             Console.WriteLine("Enter the Address");
             string address = Console.ReadLine();
             Console.WriteLine("Enter the State");
@@ -30,6 +39,7 @@ namespace Address_Book_System
             string email = Console.ReadLine();
 
             Contact contact = new Contact(firstName, lastName, address, state, city, zip, phone, email);
+
             contacts.Add(contact);
 
             Console.WriteLine("\nContact added successfully");
@@ -41,9 +51,10 @@ namespace Address_Book_System
             Console.WriteLine("Enter the first name of the person whose details you want to edit");
             string name = Console.ReadLine();
 
-            for(int i=0;i<contacts.Count;i++)
+            for (int i = 0; i < contacts.Count; i++)
             {
-                if (contacts[i].firstName.Equals(name))
+                string fullname = contacts[i].firstName + " " + contacts[i].lastName;
+                if (fullname.Equals(name))
                 {
                     flag = 1;
 
@@ -73,7 +84,7 @@ namespace Address_Book_System
                 }
             }
 
-            if(flag==0)
+            if (flag == 0)
             {
                 Console.WriteLine("Contact not found");
             }
@@ -90,7 +101,8 @@ namespace Address_Book_System
             int flag = 0;
             for (int i = 0; i < contacts.Count; i++)
             {
-                if (contacts[i].firstName.Equals(name))
+                string fullname = contacts[i].firstName + " " + contacts[i].lastName;
+                if (fullname.Equals(name))
                 {
                     flag = 1;
                     contacts.RemoveAt(i);
