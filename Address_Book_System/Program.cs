@@ -12,7 +12,7 @@ namespace Address_Book_System
             {
                 Console.WriteLine("\nMenu");
                 Console.WriteLine("1. Add a new Contact to the Address Book");
-                Console.WriteLine("1. Editing an existing Contact in the Address Book");
+                Console.WriteLine("2. Editing an existing Contact in the Address Book");
                 Console.WriteLine("3. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
