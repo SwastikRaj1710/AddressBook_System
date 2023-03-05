@@ -42,7 +42,8 @@ namespace Address_Book_System
                 Console.WriteLine("4. Displaying the details of an existing Contact in the Address Book");
                 Console.WriteLine("5. Add multiple new Contacts to the Address Book");
                 Console.WriteLine("6. Display all Contacts in the Address Book");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("7. Sort all Contacts in the Address Book based on name");
+                Console.WriteLine("8. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -77,6 +78,10 @@ namespace Address_Book_System
                         addressbook.DisplayAllContacts();
                         break;
                     case 7:
+                        Console.WriteLine("Sorting all Contacts based on the name");
+                        addressbook.SortContactByName();
+                        break;
+                    case 8:
                         flag = 1;
                         break;
                     default:
@@ -153,7 +158,7 @@ namespace Address_Book_System
                         foreach (Contact contact in value)
                         {
                             Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
-                            Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t" + contact.phone + "\t" + contact.email);
+                            Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t\t" + contact.phone + "\t" + contact.email);
                         }
                     }
                     break;
@@ -178,7 +183,7 @@ namespace Address_Book_System
                         foreach (Contact contact in value)
                         {
                             Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
-                            Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t" + contact.phone + "\t" + contact.email);
+                            Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t\t" + contact.phone + "\t" + contact.email);
                         }
                     }
                     break;
