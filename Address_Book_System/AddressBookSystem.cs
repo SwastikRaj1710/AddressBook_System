@@ -38,7 +38,8 @@ namespace Address_Book_System
                 Console.WriteLine("2. Editing an existing Contact in the Address Book");
                 Console.WriteLine("3. Deleting an existing Contact in the Address Book");
                 Console.WriteLine("4. Add multiple new Contacts to the Address Book");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Display all Contacts in the Address Book");
+                Console.WriteLine("6. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -61,6 +62,10 @@ namespace Address_Book_System
                         addressbook.AddMultipleContacts();
                         break;
                     case 5:
+                        Console.WriteLine("Displaying all Contacts in the address book");
+                        addressbook.DisplayAllContacts();
+                        break;
+                    case 6:
                         flag = 1;
                         break;
                     default:

@@ -27,10 +27,10 @@ namespace Address_Book_System
 
             Console.WriteLine("Enter the Address");
             string address = Console.ReadLine();
-            Console.WriteLine("Enter the State");
-            string state = Console.ReadLine();
             Console.WriteLine("Enter the City");
             string city = Console.ReadLine();
+            Console.WriteLine("Enter the State");
+            string state = Console.ReadLine();
             Console.WriteLine("Enter the Zip Code");
             int zip = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter the Phone Number");
@@ -38,7 +38,7 @@ namespace Address_Book_System
             Console.WriteLine("Enter the Email ID");
             string email = Console.ReadLine();
 
-            Contact contact = new Contact(firstName, lastName, address, state, city, zip, phone, email);
+            Contact contact = new Contact(firstName, lastName, address, city, state, zip, phone, email);
 
             contacts.Add(contact);
 
@@ -67,11 +67,11 @@ namespace Address_Book_System
                     Console.WriteLine("Enter the Address");
                     contacts[i].address = Console.ReadLine();
 
-                    Console.WriteLine("Enter the State");
-                    contacts[i].state = Console.ReadLine();
-
                     Console.WriteLine("Enter the City");
                     contacts[i].city = Console.ReadLine();
+
+                    Console.WriteLine("Enter the State");
+                    contacts[i].state = Console.ReadLine();
 
                     Console.WriteLine("Enter the Zip Code");
                     contacts[i].zip = Convert.ToInt32(Console.ReadLine());
@@ -81,6 +81,8 @@ namespace Address_Book_System
 
                     Console.WriteLine("Enter the Email ID");
                     contacts[i].email = Console.ReadLine();
+
+                    break;
                 }
             }
 
@@ -106,6 +108,7 @@ namespace Address_Book_System
                 {
                     flag = 1;
                     contacts.RemoveAt(i);
+                    break;
                 }
             }
 
@@ -127,6 +130,15 @@ namespace Address_Book_System
             for(int i=0;i<num;i++)
             {
                 AddContact();
+            }
+        }
+
+        public void DisplayAllContacts()
+        {
+            foreach(Contact contact in contacts)
+            {
+                Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
+                Console.WriteLine(contact.firstName + "\t" + contact.lastName + "\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t" + contact.phone + "\t" + contact.email);
             }
         }
     }
