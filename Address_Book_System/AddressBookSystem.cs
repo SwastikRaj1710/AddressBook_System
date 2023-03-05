@@ -9,6 +9,8 @@ namespace Address_Book_System
     public class AddressBookSystem
     {
         Dictionary<string, AddressBook> addressDict = new Dictionary<string, AddressBook>();
+        Dictionary<string, List<Contact>> cityDict = new Dictionary<string, List<Contact>>();
+        Dictionary<string, List<Contact>> stateDict = new Dictionary<string, List<Contact>>();
 
         public void AddAddressBook()
         {
@@ -37,9 +39,10 @@ namespace Address_Book_System
                 Console.WriteLine("1. Add a new Contact to the Address Book");
                 Console.WriteLine("2. Editing an existing Contact in the Address Book");
                 Console.WriteLine("3. Deleting an existing Contact in the Address Book");
-                Console.WriteLine("4. Add multiple new Contacts to the Address Book");
-                Console.WriteLine("5. Display all Contacts in the Address Book");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("4. Displaying the details of an existing Contact in the Address Book");
+                Console.WriteLine("5. Add multiple new Contacts to the Address Book");
+                Console.WriteLine("6. Display all Contacts in the Address Book");
+                Console.WriteLine("7. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -58,14 +61,22 @@ namespace Address_Book_System
                         addressbook.DeleteContact();
                         break;
                     case 4:
+                        Console.WriteLine("Displaying the details of an existing contact");
+                        Console.WriteLine("Enter the firstname and lastname");
+                        string fname = Console.ReadLine();
+                        string lname = Console.ReadLine();
+                        string name = fname + " " + lname;
+                        addressbook.DisplayContactDetails(name);
+                        break;
+                    case 5:
                         Console.WriteLine("Adding multiple new contacts to the address book");
                         addressbook.AddMultipleContacts();
                         break;
-                    case 5:
+                    case 6:
                         Console.WriteLine("Displaying all Contacts in the address book");
                         addressbook.DisplayAllContacts();
                         break;
-                    case 6:
+                    case 7:
                         flag = 1;
                         break;
                     default:
@@ -102,6 +113,75 @@ namespace Address_Book_System
                 {
                     Console.WriteLine(personName[i]);
                 }
+            }
+        }
+
+        public void ViewPersonByCityOrState()
+        {
+            List<AddressBook> addressBooks = new List<AddressBook>();
+
+            foreach (string bookName in addressDict.Keys)
+            {
+                addressBooks.Add(addressDict[bookName]);
+            }
+            Console.WriteLine("1. View person by City Name");
+            Console.WriteLine("1. View person by State Name");
+            Console.WriteLine("Enter your choice");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch(choice)
+            {
+                case 1:
+                    foreach (var addressBook in addressBooks)
+                    {
+
+                        foreach (Contact contact in addressBook.contacts)
+                        {
+                            if (!cityDict.ContainsKey(contact.city))
+                            {
+                                cityDict.Add(contact.city, new List<Contact>());
+                            }
+                            cityDict[contact.city].Add(contact);
+                        }
+
+                    }
+
+                    foreach (var (key, value) in cityDict)
+                    {
+                        Console.WriteLine("\nContacts found in " + key + " are:");
+                        foreach (Contact contact in value)
+                        {
+                            Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
+                            Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t" + contact.phone + "\t" + contact.email);
+                        }
+                    }
+                    break;
+                case 2:
+                    foreach (var addressBook in addressBooks)
+                    {
+
+                        foreach (Contact contact in addressBook.contacts)
+                        {
+                            if (!stateDict.ContainsKey(contact.state))
+                            {
+                                stateDict.Add(contact.state, new List<Contact>());
+                            }
+                            stateDict[contact.state].Add(contact);
+                        }
+
+                    }
+
+                    foreach (var (key, value) in stateDict)
+                    {
+                        Console.WriteLine("\nContacts found in " + key + " are:");
+                        foreach (Contact contact in value)
+                        {
+                            Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
+                            Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t" + contact.phone + "\t" + contact.email);
+                        }
+                    }
+                    break;
             }
         }
     }
