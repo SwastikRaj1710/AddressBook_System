@@ -14,7 +14,8 @@ namespace Address_Book_System
                 Console.WriteLine("1. Add a new Address Book to the system");
                 Console.WriteLine("2. Access an existing Address Book and its Contacts");
                 Console.WriteLine("3. Search people present in the same city or state");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. View person grouped by city or state");
+                Console.WriteLine("5. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -33,6 +34,10 @@ namespace Address_Book_System
                         addressBookSystem.SearchPersonAcrossAllAddressBooks();
                         break;
                     case 4:
+                        Console.WriteLine("Displaying contacts by State or City");
+                        addressBookSystem.ViewPersonByCityOrState();
+                        break;
+                    case 5:
                         Environment.Exit(0);
                         break;
                     default:
