@@ -184,5 +184,32 @@ namespace Address_Book_System
                     break;
             }
         }
+
+        public void CountPersonByCityAndState()
+        {
+            List<AddressBook> addressBooks = new List<AddressBook>();
+
+            foreach (string bookName in addressDict.Keys)
+            {
+                addressBooks.Add(addressDict[bookName]);
+            }
+            foreach (AddressBook addressBook in addressBooks)
+            {
+                var cities = addressBook.contacts.GroupBy(s => s.city);
+                var states = addressBook.contacts.GroupBy(s => s.state);
+
+                Console.WriteLine("\nCity\tNumber Of People");
+                foreach (var pair in cities)
+                {
+                    Console.WriteLine(pair.Key + " \t " + pair.Count());
+                }
+
+                Console.WriteLine("State\tNumber Of People");
+                foreach (var pair in states)
+                {
+                    Console.WriteLine(pair.Key + " \t " + pair.Count());
+                }
+            }
+        }
     }
 }
