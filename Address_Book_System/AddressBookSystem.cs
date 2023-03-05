@@ -46,7 +46,8 @@ namespace Address_Book_System
                 Console.WriteLine("8. Sort all Contacts in the Address Book based on city name");
                 Console.WriteLine("9. Sort all Contacts in the Address Book based on state name");
                 Console.WriteLine("10. Sort all Contacts in the Address Book based on zip code");
-                Console.WriteLine("11. Exit");
+                Console.WriteLine("11. Perform Read Write Operations on a Text File");
+                Console.WriteLine("12. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -97,6 +98,10 @@ namespace Address_Book_System
                         addressbook.SortContactByZipCode();
                         break;
                     case 11:
+                        Console.WriteLine("Text File Read Write Operations");
+                        addressbook.ReadWriteTextFile();
+                        break;
+                    case 12:
                         flag = 1;
                         break;
                     default:

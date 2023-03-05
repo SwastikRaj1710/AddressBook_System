@@ -98,7 +98,7 @@ namespace Address_Book_System
 
         public void DeleteContact()
         {
-            Console.WriteLine("Enter the first name of the Contact you want to delete");
+            Console.WriteLine("Enter the full name of the Contact you want to delete");
             string name = Console.ReadLine();
             int flag = 0;
             for (int i = 0; i < contacts.Count; i++)
@@ -180,6 +180,56 @@ namespace Address_Book_System
             contacts.Sort((p1, p2) => p1.zip.CompareTo(p2.zip));
             Console.WriteLine("Contacts sorted by their zip codes");
             DisplayAllContacts();
+        }
+
+        public void ReadWriteTextFile()
+        {
+            string path = "D:\\BridgeLabz\\AddressBook_System\\Address_Book_System\\File1.txt";
+            Console.WriteLine("1.Read from a text file");
+            Console.WriteLine("2.Write to a text file");
+            Console.WriteLine("Enter your choice");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch(choice)
+            {
+                case 1:
+                    Console.WriteLine("\nContents of the file are:");
+                    if (File.Exists(path))
+                    {
+                        StreamReader sr = new StreamReader(path);
+                        string line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            Console.WriteLine(line);
+                            line = sr.ReadLine();
+                        }
+                        sr.Close();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("File does not exist");
+                    }
+                    break;
+                case 2:
+                    StreamWriter sw = new StreamWriter(path);
+                    foreach(Contact contact in contacts)
+                    {
+                        sw.WriteLine("First Name: " + contact.firstName);
+                        sw.WriteLine("Last Name: " + contact.lastName);
+                        sw.WriteLine("Address: " + contact.address);
+                        sw.WriteLine("City: " + contact.city);
+                        sw.WriteLine("State: " + contact.state);
+                        sw.WriteLine("Zip Code: " + contact.zip);
+                        sw.WriteLine("Phone Number: " + contact.phone);
+                        sw.WriteLine("Email Id: " + contact.email);
+                        sw.WriteLine();
+                    }
+                    sw.Close();
+                    Console.WriteLine("Successfully written to the file");
+                    break;
+            }
         }
     }
 }
