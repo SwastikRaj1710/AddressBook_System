@@ -1,8 +1,13 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Address_Book_System
 {
@@ -227,6 +232,74 @@ namespace Address_Book_System
                         sw.WriteLine();
                     }
                     sw.Close();
+                    Console.WriteLine("Successfully written to the file");
+                    break;
+            }
+        }
+
+        public void ReadWriteCSVFile()
+        {
+            string path = "D:\\BridgeLabz\\AddressBook_System\\Address_Book_System\\File1.csv";
+            Console.WriteLine("1.Read from a csv file");
+            Console.WriteLine("2.Write to a csv file");
+            Console.WriteLine("Enter your choice");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("\nContents of the file are:");
+                    if (File.Exists(path))
+                    {
+                        using var streamReader = File.OpenText(path);
+                        using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
+
+                        string record;
+
+                        while (csvReader.Read())
+                        {
+                            for (int i = 0; csvReader.TryGetField<string>(i, out record); i++)
+                            {
+                                Console.Write($"{record} ");
+                            }
+                            Console.WriteLine();
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("File does not exist");
+                    }
+                    break;
+                case 2:
+                    using (var streamWriter = new StreamWriter(path))
+                    {
+                        using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture))
+                        {
+                            csvWriter.WriteField("First Name");
+                            csvWriter.WriteField("Last Name");
+                            csvWriter.WriteField("Address");
+                            csvWriter.WriteField("City");
+                            csvWriter.WriteField("State");
+                            csvWriter.WriteField("Zip");
+                            csvWriter.WriteField("Phone Number");
+                            csvWriter.WriteField("Email ID");
+                            csvWriter.NextRecord();
+                            foreach (Contact contact in contacts)
+                            {
+                                csvWriter.WriteField(contact.firstName + "\t");
+                                csvWriter.WriteField(contact.lastName + "\t");
+                                csvWriter.WriteField(contact.address);
+                                csvWriter.WriteField(contact.city);
+                                csvWriter.WriteField(contact.state);
+                                csvWriter.WriteField(contact.zip + "\t");
+                                csvWriter.WriteField(contact.phone);
+                                csvWriter.WriteField(contact.email);
+                                csvWriter.NextRecord();
+                            }
+                        }
+                    }
                     Console.WriteLine("Successfully written to the file");
                     break;
             }
