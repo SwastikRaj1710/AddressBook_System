@@ -15,7 +15,8 @@ namespace Address_Book_System
                 Console.WriteLine("2. Access an existing Address Book and its Contacts");
                 Console.WriteLine("3. Search people present in the same city or state");
                 Console.WriteLine("4. View person grouped by city or state");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. View count of person from each city and state");
+                Console.WriteLine("6. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -38,6 +39,10 @@ namespace Address_Book_System
                         addressBookSystem.ViewPersonByCityOrState();
                         break;
                     case 5:
+                        Console.WriteLine("Displaying count of people in each city and state");
+                        addressBookSystem.CountPersonByCityAndState();
+                        break;
+                    case 6:
                         Environment.Exit(0);
                         break;
                     default:
