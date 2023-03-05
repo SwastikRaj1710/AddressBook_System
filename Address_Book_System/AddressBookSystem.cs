@@ -43,7 +43,10 @@ namespace Address_Book_System
                 Console.WriteLine("5. Add multiple new Contacts to the Address Book");
                 Console.WriteLine("6. Display all Contacts in the Address Book");
                 Console.WriteLine("7. Sort all Contacts in the Address Book based on name");
-                Console.WriteLine("8. Exit");
+                Console.WriteLine("8. Sort all Contacts in the Address Book based on city name");
+                Console.WriteLine("9. Sort all Contacts in the Address Book based on state name");
+                Console.WriteLine("10. Sort all Contacts in the Address Book based on zip code");
+                Console.WriteLine("11. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -82,6 +85,18 @@ namespace Address_Book_System
                         addressbook.SortContactByName();
                         break;
                     case 8:
+                        Console.WriteLine("Sorting all Contacts based on the city name");
+                        addressbook.SortContactByCity();
+                        break;
+                    case 9:
+                        Console.WriteLine("Sorting all Contacts based on the state name");
+                        addressbook.SortContactByState();
+                        break;
+                    case 10:
+                        Console.WriteLine("Sorting all Contacts based on the zip code");
+                        addressbook.SortContactByZipCode();
+                        break;
+                    case 11:
                         flag = 1;
                         break;
                     default:

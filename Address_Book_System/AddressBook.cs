@@ -157,6 +157,28 @@ namespace Address_Book_System
         public void SortContactByName()
         {
             contacts.Sort((p1, p2) => p1.firstName.CompareTo(p2.firstName));
+            Console.WriteLine("Contacts sorted by their name");
+            DisplayAllContacts();
+        }
+
+        public void SortContactByCity()
+        {
+            contacts.Sort((p1, p2) => p1.city.CompareTo(p2.city));
+            Console.WriteLine("Contacts sorted by their city names");
+            DisplayAllContacts();
+        }
+
+        public void SortContactByState()
+        {
+            contacts.Sort((p1, p2) => p1.state.CompareTo(p2.state));
+            Console.WriteLine("Contacts sorted by their state names");
+            DisplayAllContacts();
+        }
+
+        public void SortContactByZipCode()
+        {
+            contacts.Sort((p1, p2) => p1.zip.CompareTo(p2.zip));
+            Console.WriteLine("Contacts sorted by their zip codes");
             DisplayAllContacts();
         }
     }
