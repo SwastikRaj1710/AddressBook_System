@@ -2,7 +2,7 @@
 
 namespace Address_Book_System
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -13,7 +13,8 @@ namespace Address_Book_System
                 Console.WriteLine("\nMenu");
                 Console.WriteLine("1. Add a new Address Book to the system");
                 Console.WriteLine("2. Access an existing Address Book and its Contacts");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Search people present in the same city or state");
+                Console.WriteLine("4. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -28,6 +29,10 @@ namespace Address_Book_System
                         addressBookSystem.AccessAddressBook();
                         break;
                     case 3:
+                        Console.WriteLine("Searching people living in a given state or city");
+                        addressBookSystem.SearchPersonAcrossAllAddressBooks();
+                        break;
+                    case 4:
                         Environment.Exit(0);
                         break;
                     default:

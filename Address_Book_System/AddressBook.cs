@@ -8,7 +8,7 @@ namespace Address_Book_System
 {
     public class AddressBook
     {
-        List<Contact> contacts = new List<Contact>();
+        public List<Contact> contacts = new List<Contact>();
         public void AddContact()
         {
             Console.WriteLine("\nEnter the contact details");

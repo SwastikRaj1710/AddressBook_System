@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Address_Book_System
 {
-    internal class AddressBookSystem
+    public class AddressBookSystem
     {
         Dictionary<string, AddressBook> addressDict = new Dictionary<string, AddressBook>();
 
@@ -74,6 +74,34 @@ namespace Address_Book_System
                 }
                 if (flag == 1)
                     break;
+            }
+        }
+
+        public void SearchPersonAcrossAllAddressBooks()
+        {
+            Console.WriteLine("Enter the City");
+            string city = Console.ReadLine();
+            Console.WriteLine("Enter the State");
+            string state = Console.ReadLine();
+
+            List<AddressBook> addressBooks = new List<AddressBook>();
+
+            foreach(string bookName in addressDict.Keys)
+            {
+                addressBooks.Add(addressDict[bookName]);
+            }
+
+            Console.WriteLine("Names of people present in the same City or State are:");
+
+            foreach(var addressBook in addressBooks)
+            {
+                var contactList = addressBook.contacts.Where(s => s.city == city || s.state == state);
+                var personName = contactList.Select(s => s.firstName + " " +  s.lastName).ToList();
+
+                for(int i=0;i<personName.Count;i++)
+                {
+                    Console.WriteLine(personName[i]);
+                }
             }
         }
     }
