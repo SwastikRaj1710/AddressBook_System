@@ -67,10 +67,8 @@ namespace Address_Book_System
                         break;
                     case 4:
                         Console.WriteLine("Displaying the details of an existing contact");
-                        Console.WriteLine("Enter the firstname and lastname");
-                        string fname = Console.ReadLine();
-                        string lname = Console.ReadLine();
-                        string name = fname + " " + lname;
+                        Console.WriteLine("Enter the full name");
+                        string name = Console.ReadLine();
                         addressbook.DisplayContactDetails(name);
                         break;
                     case 5:
