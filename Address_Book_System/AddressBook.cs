@@ -17,8 +17,8 @@ namespace Address_Book_System
 {
     public class AddressBook
     {
-        /*public static string connectionString = ConfigurationManager.ConnectionStrings["connection_string"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);*/
+        public static string connectionString = ConfigurationManager.ConnectionStrings["connection_string"].ConnectionString;
+        SqlConnection conn = new SqlConnection(connectionString);
         public List<Contact> contacts = new List<Contact>();
 
         public bool AddContact(Contact contact)
@@ -129,7 +129,7 @@ namespace Address_Book_System
                 Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t\t" + contact.phone + "\t" + contact.email);
             }
 
-            /*Console.WriteLine("Contacts as fetched from the database");
+            Console.WriteLine("Contacts as fetched from the database");
             SqlCommand cmd = new SqlCommand("spDisplayContacts", conn);
             try
             {
@@ -152,7 +152,7 @@ namespace Address_Book_System
             finally
             {
                 conn.Close();
-            }*/
+            }
             return true;
         }
 
