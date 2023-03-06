@@ -188,12 +188,11 @@ namespace Address_Book_System
                 SqlDataAdapter ad = new SqlDataAdapter(cmd);
                 DataTable dataTable = new DataTable();
                 ad.Fill(dataTable);
-
+                Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8}", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]);
+                    Console.WriteLine("{0} \t {1} \t {2} {3} {4} {5} \t {6} {7} {8}", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]);
                 }
-
             }
             catch (Exception ex)
             {
@@ -417,6 +416,35 @@ namespace Address_Book_System
                     File.WriteAllText(path, resultJson);
                     Console.WriteLine("Successfully written to the file");
                     break;
+            }
+        }
+
+        public void RetrieveContactsInAGivenPeriod(string start, string end)
+        {
+            SqlCommand cmd = new SqlCommand("spRetrieveContactsInAGivenPeriod", conn);
+            try
+            {
+                conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@startdate", start));
+                cmd.Parameters.Add(new SqlParameter("@enddate", end));
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                ad.Fill(dataTable);
+                Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    Console.WriteLine("{0} \t {1} \t {2} {3} {4} {5} \t {6} {7} {8}", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]);
+                }
+                Console.WriteLine("Fetched from Database");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }
