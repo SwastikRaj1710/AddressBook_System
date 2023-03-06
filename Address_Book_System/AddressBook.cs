@@ -447,5 +447,69 @@ namespace Address_Book_System
                 conn.Close();
             }
         }
+
+        public void RetrieveCountPerStateOrCity()
+        {
+            Console.WriteLine("1. Count of People in a City");
+            Console.WriteLine("2. Count of People in a State");
+            Console.WriteLine("Enter your choice");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Enter the city");
+                    string city = Console.ReadLine();
+                    SqlCommand cmd = new SqlCommand("spRetrieveCountPerCity", conn);
+                    try
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@city", city));
+                        SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                        DataTable dataTable = new DataTable();
+                        ad.Fill(dataTable);
+                        Console.WriteLine("\nCount of people living in " + city);
+                        Console.WriteLine(dataTable.Rows[0][0]);
+                        Console.WriteLine("Fetched from Database");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Enter the state");
+                    string state = Console.ReadLine();
+                    cmd = new SqlCommand("spRetrieveCountPerState", conn);
+                    try
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@state", state));
+                        SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                        DataTable dataTable = new DataTable();
+                        ad.Fill(dataTable);
+                        Console.WriteLine("\nCount of people living in " + state);
+                        Console.WriteLine(dataTable.Rows[0][0]);
+                        Console.WriteLine("Fetched from Database");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    break;
+            }
+
+        }
     }
 }

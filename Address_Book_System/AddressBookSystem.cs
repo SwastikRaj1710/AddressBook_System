@@ -47,10 +47,11 @@ namespace Address_Book_System
                 Console.WriteLine("9. Sort all Contacts in the Address Book based on state name");
                 Console.WriteLine("10. Sort all Contacts in the Address Book based on zip code");
                 Console.WriteLine("11. Retrieve Contacts in a Given Period");
-                Console.WriteLine("12. Perform Read Write Operations on a Text File");
-                Console.WriteLine("13. Perform Read Write Operations on a CSV File");
-                Console.WriteLine("14. Perform Read Write Operations on a JSON File");
-                Console.WriteLine("15. Exit");
+                Console.WriteLine("12. Retrieve Count of Contacts in a given state or city");
+                Console.WriteLine("13. Perform Read Write Operations on a Text File");
+                Console.WriteLine("14. Perform Read Write Operations on a CSV File");
+                Console.WriteLine("15. Perform Read Write Operations on a JSON File");
+                Console.WriteLine("16. Exit");
                 Console.WriteLine("Enter your choice");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -152,18 +153,22 @@ namespace Address_Book_System
                         addressbook.RetrieveContactsInAGivenPeriod(start, end);
                         break;
                     case 12:
+                        Console.WriteLine("Retrieving Count of Contacts in a given state or city");
+                        addressbook.RetrieveCountPerStateOrCity();
+                        break;
+                    case 13:
                         Console.WriteLine("Text File Read Write Operations");
                         addressbook.ReadWriteTextFile();
                         break;
-                    case 13:
+                    case 14:
                         Console.WriteLine("CSV File Read Write Operations");
                         addressbook.ReadWriteCSVFile();
                         break;
-                    case 14:
+                    case 15:
                         Console.WriteLine("JSON File Read Write Operations");
                         addressbook.ReadWriteJSONFile();
                         break;
-                    case 15:
+                    case 16:
                         flag = 1;
                         break;
                     default:
