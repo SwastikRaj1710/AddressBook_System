@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -300,6 +301,60 @@ namespace Address_Book_System
                             }
                         }
                     }
+                    Console.WriteLine("Successfully written to the file");
+                    break;
+            }
+        }
+
+        public void ReadWriteJSONFile()
+        {
+            string path = "D:\\BridgeLabz\\AddressBook_System\\Address_Book_System\\File1.json";
+            Console.WriteLine("1.Read from a json file");
+            Console.WriteLine("2.Write to a json file");
+            Console.WriteLine("Enter your choice");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("\nContents of the file are:");
+                    if (File.Exists(path))
+                    {
+                        string resultString = File.ReadAllText(path);
+                        List<Contact> Result = JsonConvert.DeserializeObject<List<Contact>>(resultString);
+                        foreach (Contact contact in Result)
+                        {
+                            Console.WriteLine("First Name: " + contact.firstName);
+                            Console.WriteLine("Last Name: " + contact.lastName);
+                            Console.WriteLine("Address: " + contact.address);
+                            Console.WriteLine("City: " + contact.city);
+                            Console.WriteLine("State: " + contact.state);
+                            Console.WriteLine("Zip Code: " + contact.zip);
+                            Console.WriteLine("Phone Number: " + contact.phone);
+                            Console.WriteLine("Email Id: " + contact.email);
+                            Console.WriteLine();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("File does not exist");
+                    }
+                    break;
+                case 2:
+                    if (!File.Exists(path))
+                    {
+                        File.WriteAllText(path, "[]");
+                    }
+                    string storedJson = File.ReadAllText(path);
+                    List<Contact> contactsJson = new List<Contact>();
+                    contactsJson = JsonConvert.DeserializeObject<List<Contact>>(storedJson);
+                    foreach (Contact contact in contacts)
+                    {
+                        contactsJson.Add(contact);
+                    }
+                    string resultJson = JsonConvert.SerializeObject(contactsJson);
+                    File.WriteAllText(path, resultJson);
                     Console.WriteLine("Successfully written to the file");
                     break;
             }
