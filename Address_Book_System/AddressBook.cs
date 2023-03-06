@@ -17,145 +17,64 @@ namespace Address_Book_System
 {
     public class AddressBook
     {
-        public static string connectionString = ConfigurationManager.ConnectionStrings["connection_string"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        /*public static string connectionString = ConfigurationManager.ConnectionStrings["connection_string"].ConnectionString;
+        SqlConnection conn = new SqlConnection(connectionString);*/
         public List<Contact> contacts = new List<Contact>();
-        public void AddContact()
-        {
-            Console.WriteLine("\nEnter the contact details");
-            Console.WriteLine("Enter the First Name");
-            string firstName = Console.ReadLine();
-            Console.WriteLine("Enter the Last Name");
-            string lastName = Console.ReadLine();
 
-            string fullname = firstName + " " + lastName;
+        public bool AddContact(Contact contact)
+        {
+            string fullname = contact.firstName + " " + contact.lastName;
 
             if(contacts.Find(s => (s.firstName + " " + s.lastName) == fullname) != null)
             {
                 Console.WriteLine("The entered contact name already exists");
-                return;
-            }
-
-            Console.WriteLine("Enter the Address");
-            string address = Console.ReadLine();
-            Console.WriteLine("Enter the City");
-            string city = Console.ReadLine();
-            Console.WriteLine("Enter the State");
-            string state = Console.ReadLine();
-            Console.WriteLine("Enter the Zip Code");
-            int zip = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter the Phone Number");
-            long phone = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("Enter the Email ID");
-            string email = Console.ReadLine();
-
-            Contact contact = new Contact(firstName, lastName, address, city, state, zip, phone, email);
-
-            contacts.Add(contact);
-
-            SqlCommand cmd = new SqlCommand("spInsertContact", conn);
-            try
-            {
-                conn.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@fname", firstName));
-                cmd.Parameters.Add(new SqlParameter("@lname", lastName));
-                cmd.Parameters.Add(new SqlParameter("@address", address));
-                cmd.Parameters.Add(new SqlParameter("@city", city));
-                cmd.Parameters.Add(new SqlParameter("@state", state));
-                cmd.Parameters.Add(new SqlParameter("@zip", zip));
-                cmd.Parameters.Add(new SqlParameter("@phone", phone));
-                cmd.Parameters.Add(new SqlParameter("@email", email));
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("Inserted to Database");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            Console.WriteLine("\nContact added successfully");
-        }
-
-        public void EditContact()
-        {
-            int flag = 0;
-            Console.WriteLine("Enter the first name of the person whose details you want to edit");
-            string name = Console.ReadLine();
-
-            for (int i = 0; i < contacts.Count; i++)
-            {
-                string fullname = contacts[i].firstName + " " + contacts[i].lastName;
-                if (fullname.Equals(name))
-                {
-                    flag = 1;
-
-                    Console.WriteLine("Enter the First Name");
-                    contacts[i].firstName = Console.ReadLine();
-
-                    Console.WriteLine("Enter the Last Name");
-                    contacts[i].lastName = Console.ReadLine();
-
-                    Console.WriteLine("Enter the Address");
-                    contacts[i].address = Console.ReadLine();
-
-                    Console.WriteLine("Enter the City");
-                    contacts[i].city = Console.ReadLine();
-
-                    Console.WriteLine("Enter the State");
-                    contacts[i].state = Console.ReadLine();
-
-                    Console.WriteLine("Enter the Zip Code");
-                    contacts[i].zip = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine("Enter the Phone Number");
-                    contacts[i].phone = Convert.ToInt64(Console.ReadLine());
-
-                    Console.WriteLine("Enter the Email ID");
-                    contacts[i].email = Console.ReadLine();
-
-                    break;
-                }
-            }
-
-            if (flag == 0)
-            {
-                Console.WriteLine("Contact not found");
+                return false;
             }
             else
             {
-                Console.WriteLine("Contact details updated");
+                contacts.Add(contact);
+                Console.WriteLine("\nContact added successfully");
+                return true;
             }
         }
 
-        public void DeleteContact()
+        public bool EditContact(Contact contact)
         {
-            Console.WriteLine("Enter the full name of the Contact you want to delete");
-            string name = Console.ReadLine();
-            int flag = 0;
+            for (int i = 0; i < contacts.Count; i++)
+            {
+                string fullname = contacts[i].firstName + " " + contacts[i].lastName;
+                if (fullname.Equals(contact.firstName + " " + contact.lastName))
+                {
+                    contacts[i].firstName = contact.firstName;
+                    contacts[i].lastName = contact.lastName;
+                    contacts[i].address = contact.address;
+                    contacts[i].city = contact.city;
+                    contacts[i].state = contact.state;
+                    contacts[i].zip = contact.zip;
+                    contacts[i].phone = contact.phone;
+                    contacts[i].email = contact.email;
+
+                    Console.WriteLine("Contact details updated");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool DeleteContact(string name)
+        {
             for (int i = 0; i < contacts.Count; i++)
             {
                 string fullname = contacts[i].firstName + " " + contacts[i].lastName;
                 if (fullname.Equals(name))
                 {
-                    flag = 1;
                     contacts.RemoveAt(i);
-                    break;
+                    Console.WriteLine("Contact deleted");
+                    return true;
                 }
             }
-
-            if (flag == 0)
-            {
-                Console.WriteLine("Contact not found");
-            }
-            else
-            {
-                Console.WriteLine("Contact deleted");
-            }
+            return false;
         }
 
         public void AddMultipleContacts()
@@ -165,19 +84,52 @@ namespace Address_Book_System
 
             for(int i=0;i<num;i++)
             {
-                AddContact();
+                Console.WriteLine("\nEnter the contact details");
+                Console.WriteLine("Enter the First Name");
+                string firstName = Console.ReadLine();
+                Console.WriteLine("Enter the Last Name");
+                string lastName = Console.ReadLine();
+                string fullname = firstName + " " + lastName;
+
+                if (contacts.Find(s => (s.firstName + " " + s.lastName) == fullname) != null)
+                {
+                    Console.WriteLine("The entered contact name already exists");
+                    return;
+                }
+                Console.WriteLine("Enter the Address");
+                string address = Console.ReadLine();
+                Console.WriteLine("Enter the City");
+                string city = Console.ReadLine();
+                Console.WriteLine("Enter the State");
+                string state = Console.ReadLine();
+                Console.WriteLine("Enter the Zip Code");
+                int zip = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter the Phone Number");
+                long phone = Convert.ToInt64(Console.ReadLine());
+                Console.WriteLine("Enter the Email ID");
+                string email = Console.ReadLine();
+
+                Contact contact = new Contact(firstName, lastName, address, city, state, zip, phone, email);
+                AddContact(contact);
             }
+            Console.WriteLine("\nContacts added successfully");
+
         }
 
-        public void DisplayAllContacts()
+        public bool DisplayAllContacts()
         {
+            if (contacts == null)
+            {
+                Console.WriteLine("There are no contacts to be displayed.");
+                return false;
+            }
             foreach(Contact contact in contacts)
             {
                 Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
                 Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t\t" + contact.phone + "\t" + contact.email);
             }
 
-            Console.WriteLine("Contacts as fetched from the database");
+            /*Console.WriteLine("Contacts as fetched from the database");
             SqlCommand cmd = new SqlCommand("spDisplayContacts", conn);
             try
             {
@@ -200,10 +152,11 @@ namespace Address_Book_System
             finally
             {
                 conn.Close();
-            }
+            }*/
+            return true;
         }
 
-        public void DisplayContactDetails(string name)
+        public bool DisplayContactDetails(string name)
         {
             foreach(Contact contact in contacts)
             {
@@ -211,8 +164,10 @@ namespace Address_Book_System
                 {
                     Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
                     Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t\t" + contact.phone + "\t" + contact.email);
+                    return true;
                 }
             }
+            return false;
         }
 
         public void SortContactByName()

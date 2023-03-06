@@ -57,15 +57,60 @@ namespace Address_Book_System
                 {
                     case 1:
                         Console.WriteLine("Adding a new contact to the address book");
-                        addressbook.AddContact();
+                        Console.WriteLine("\nEnter the contact details");
+                        Console.WriteLine("Enter the First Name");
+                        string firstName = Console.ReadLine();
+                        Console.WriteLine("Enter the Last Name");
+                        string lastName = Console.ReadLine();
+                        Console.WriteLine("Enter the Address");
+                        string address = Console.ReadLine();
+                        Console.WriteLine("Enter the City");
+                        string city = Console.ReadLine();
+                        Console.WriteLine("Enter the State");
+                        string state = Console.ReadLine();
+                        Console.WriteLine("Enter the Zip Code");
+                        int zip = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter the Phone Number");
+                        long phone = Convert.ToInt64(Console.ReadLine());
+                        Console.WriteLine("Enter the Email ID");
+                        string email = Console.ReadLine();
+
+                        Contact contact = new Contact(firstName, lastName, address, city, state, zip, phone, email);
+                        addressbook.AddContact(contact);
                         break;
                     case 2:
                         Console.WriteLine("Editing an existing contact in the address book");
-                        addressbook.EditContact();
+                        Console.WriteLine("Enter the First Name");
+                        string fname = Console.ReadLine();
+
+                        Console.WriteLine("Enter the Last Name");
+                        string lname = Console.ReadLine();
+
+                        Console.WriteLine("Enter the Address");
+                        string add = Console.ReadLine();
+
+                        Console.WriteLine("Enter the City");
+                        string cityname = Console.ReadLine();
+
+                        Console.WriteLine("Enter the State");
+                        string statename = Console.ReadLine();
+
+                        Console.WriteLine("Enter the Zip Code");
+                        int zipcode = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Enter the Phone Number");
+                        long ph = Convert.ToInt64(Console.ReadLine());
+
+                        Console.WriteLine("Enter the Email ID");
+                        string emailid = Console.ReadLine();
+
+                        addressbook.EditContact(new Contact(fname, lname, add, cityname, statename, zipcode, ph, emailid));
                         break;
                     case 3:
                         Console.WriteLine("Deleting an existing contact in the address book");
-                        addressbook.DeleteContact();
+                        Console.WriteLine("Enter the full name of the person");
+                        string fullname = Console.ReadLine();
+                        addressbook.DeleteContact(fullname);
                         break;
                     case 4:
                         Console.WriteLine("Displaying the details of an existing contact");
