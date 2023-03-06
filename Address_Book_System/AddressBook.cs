@@ -12,6 +12,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Security.Policy;
 
 namespace Address_Book_System
 {
@@ -23,6 +24,30 @@ namespace Address_Book_System
 
         public bool AddContact(Contact contact)
         {
+            SqlCommand cmd = new SqlCommand("spInsertContact", conn);
+            try
+            {
+                conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fname", contact.firstName));
+                cmd.Parameters.Add(new SqlParameter("@lname", contact.lastName));
+                cmd.Parameters.Add(new SqlParameter("@address", contact.address));
+                cmd.Parameters.Add(new SqlParameter("@city", contact.city));
+                cmd.Parameters.Add(new SqlParameter("@state", contact.state));
+                cmd.Parameters.Add(new SqlParameter("@zip", contact.zip));
+                cmd.Parameters.Add(new SqlParameter("@phone", contact.phone));
+                cmd.Parameters.Add(new SqlParameter("@email", contact.email));
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Inserted to Database");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
             string fullname = contact.firstName + " " + contact.lastName;
 
             if(contacts.Find(s => (s.firstName + " " + s.lastName) == fullname) != null)
