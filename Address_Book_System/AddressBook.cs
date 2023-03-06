@@ -2,6 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -14,6 +17,8 @@ namespace Address_Book_System
 {
     public class AddressBook
     {
+        public static string connectionString = ConfigurationManager.ConnectionStrings["connection_string"].ConnectionString;
+        SqlConnection conn = new SqlConnection(connectionString);
         public List<Contact> contacts = new List<Contact>();
         public void AddContact()
         {
@@ -47,6 +52,31 @@ namespace Address_Book_System
             Contact contact = new Contact(firstName, lastName, address, city, state, zip, phone, email);
 
             contacts.Add(contact);
+
+            SqlCommand cmd = new SqlCommand("spInsertContact", conn);
+            try
+            {
+                conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fname", firstName));
+                cmd.Parameters.Add(new SqlParameter("@lname", lastName));
+                cmd.Parameters.Add(new SqlParameter("@address", address));
+                cmd.Parameters.Add(new SqlParameter("@city", city));
+                cmd.Parameters.Add(new SqlParameter("@state", state));
+                cmd.Parameters.Add(new SqlParameter("@zip", zip));
+                cmd.Parameters.Add(new SqlParameter("@phone", phone));
+                cmd.Parameters.Add(new SqlParameter("@email", email));
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Inserted to Database");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
 
             Console.WriteLine("\nContact added successfully");
         }
@@ -145,6 +175,31 @@ namespace Address_Book_System
             {
                 Console.WriteLine("\nFirst Name\tLast Name\tAddress\tCity\tState\tZip Code\tPhone No.\tEmail Id");
                 Console.WriteLine(contact.firstName + "\t\t" + contact.lastName + "\t\t" + contact.address + "\t" + contact.city + "\t" + contact.state + "\t" + contact.zip + "\t\t" + contact.phone + "\t" + contact.email);
+            }
+
+            Console.WriteLine("Contacts as fetched from the database");
+            SqlCommand cmd = new SqlCommand("spDisplayContacts", conn);
+            try
+            {
+                conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                ad.Fill(dataTable);
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8}", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
