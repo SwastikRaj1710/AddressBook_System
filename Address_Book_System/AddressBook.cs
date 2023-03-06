@@ -65,6 +65,31 @@ namespace Address_Book_System
 
         public bool EditContact(Contact contact)
         {
+            SqlCommand cmd = new SqlCommand("spUpdateContact", conn);
+            try
+            {
+                conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@fname", contact.firstName));
+                cmd.Parameters.Add(new SqlParameter("@lname", contact.lastName));
+                cmd.Parameters.Add(new SqlParameter("@address", contact.address));
+                cmd.Parameters.Add(new SqlParameter("@city", contact.city));
+                cmd.Parameters.Add(new SqlParameter("@state", contact.state));
+                cmd.Parameters.Add(new SqlParameter("@zip", contact.zip));
+                cmd.Parameters.Add(new SqlParameter("@phone", contact.phone));
+                cmd.Parameters.Add(new SqlParameter("@email", contact.email));
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Updated to Database");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                conn.Close();
+            }
+
             for (int i = 0; i < contacts.Count; i++)
             {
                 string fullname = contacts[i].firstName + " " + contacts[i].lastName;
